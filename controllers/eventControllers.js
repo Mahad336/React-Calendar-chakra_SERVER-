@@ -31,9 +31,7 @@ const displayEvent = async (req, res) => {
   }
 };
 
-const create = (req, res) => {
-  res.render("create");
-};
+const create = (req, res) => {};
 
 const createPost = (req, res) => {
   const event = new Event({ ...req.body, createdBy: req.user._id });
@@ -49,7 +47,7 @@ const createAllDayEvent_post = (req, res) => {
   const event = new DayEvent({ ...req.body, createdBy: req.user._id });
   event
     .save()
-    .then((result) => res.redirect("/events"))
+    .then((result) => res.json(result))
     .catch((e) => {});
 };
 
@@ -89,9 +87,7 @@ const updateAllDayEvent = (req, res) => {
     });
 };
 
-const createAllDayEvent = (req, res) => {
-  res.render("createAllDayEvent");
-};
+const createAllDayEvent = (req, res) => {};
 
 const eventDelete = (req, res) => {
   const id = req.params.id;
