@@ -27,7 +27,7 @@ mongoose
     useUnifiedTopology: true,
     useCreateIndex: true,
   })
-  .then(() => app.listen(process.env.port || 3000))
+  .then(() => app.listen(process.env.PORT || 8000))
   .catch((err) => console.log(err));
 
 // routes
