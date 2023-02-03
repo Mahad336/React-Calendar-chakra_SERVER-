@@ -31,20 +31,12 @@ const createToken = (id) => {
   return jwt.sign({ id }, process.env.secretKey, { expiresIn: maxAge });
 };
 
-const signup_get = (request, response) => {
-  response.render("signup");
-};
-
-const login_get = (request, response) => {
-  response.render("login");
-};
-
-const logout_get = (request, response) => {
+const logout = (request, response) => {
   response.cookie("jwt", "", { maxAge: 1 });
-  response.redirect("http://localhost:3000/login");
+  response.json("Logged out");
 };
 
-const signup_post = async (request, response) => {
+const signup = async (request, response) => {
   const { email, password, firstName, lastName } = request.body;
   try {
     const user = await User.create({ email, password, firstName, lastName });
@@ -57,8 +49,9 @@ const signup_post = async (request, response) => {
   }
 };
 
-const login_post = async (request, response) => {
+const login = async (request, response) => {
   const { email, password } = request.body;
+
   try {
     const user = await User.login(email, password);
     const token = createToken(user._id);
@@ -72,9 +65,7 @@ const login_post = async (request, response) => {
 };
 
 module.exports = {
-  signup_get,
-  signup_post,
-  login_get,
-  login_post,
-  logout_get,
+  signup,
+  login,
+  logout,
 };

@@ -21,6 +21,10 @@ const userSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
+  isAllDay: {
+    type: Boolean,
+    required: true,
+  },
 });
 
 const Event = mongoose.model("event", userSchema);

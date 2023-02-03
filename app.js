@@ -14,7 +14,12 @@ dotenv.config();
 app.use(express.static("public"));
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors());
+app.use(
+  cors({
+    credentials: true,
+    origin: "http://localhost:3000",
+  })
+);
 
 // view engine
 app.set("view engine", "ejs");
@@ -33,10 +38,6 @@ mongoose
 // routes
 app.use("*", checkUser);
 
-app.use(authRoutes);
+app.use("/user", authRoutes);
 app.use("/events", eventRoutes);
 app.get("/", (req, res) => res.render("login"));
-
-app.get("/display-events", (req, res) => {
-  res.sendFile(path.join(__dirname, "./views/index.html"));
-});
