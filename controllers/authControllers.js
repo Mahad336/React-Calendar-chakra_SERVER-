@@ -51,7 +51,6 @@ const signup = async (request, response) => {
 
 const login = async (request, response) => {
   const { email, password } = request.body;
-
   try {
     const user = await User.login(email, password);
     const token = createToken(user._id);

@@ -18,34 +18,27 @@ const createEvent = (req, res) => {
   event
     .save()
     .then((result) => {
-      res.redirect("/events");
+      res.json({ result });
     })
     .catch((e) => {});
 };
 
 const updateEvent = (req, res) => {
-  const { id, title, location, startAt, endAt } = { ...req.body };
-
-  Event.findByIdAndUpdate(
-    id,
-    {
-      $set: { title, location, startAt, endAt },
-    },
-    { useFindAndModify: false }
-  )
+  const id = req.params.id;
+  Event.findByIdAndUpdate(id, req.body, { new: true })
     .then((result) => {
-      res.json({ redirect: "/" });
+      res.json({ result });
     })
     .catch((error) => {
       console.log(error);
     });
 };
 
-const eventDelete = (req, res) => {
+const deleteEvent = (req, res) => {
   const id = req.params.id;
   Event.findByIdAndDelete(id)
     .then((result) => {
-      res.json({ redirect: "/" });
+      res.json({ result });
     })
     .catch((error) => {
       console.log(error);
@@ -56,5 +49,5 @@ module.exports = {
   displayEvents,
   createEvent,
   updateEvent,
-  eventDelete,
+  deleteEvent,
 };

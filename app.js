@@ -11,18 +11,15 @@ const app = express();
 dotenv.config();
 
 // middleware
-app.use(express.static("public"));
+
 app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    credentials: true,
     origin: "http://localhost:3000",
+    credentials: true,
   })
 );
-
-// view engine
-app.set("view engine", "ejs");
 
 // database connection
 const dbURI = process.env.dataBaseUrl;
@@ -37,7 +34,5 @@ mongoose
 
 // routes
 app.use("*", checkUser);
-
 app.use("/user", authRoutes);
 app.use("/events", eventRoutes);
-app.get("/", (req, res) => res.render("login"));
